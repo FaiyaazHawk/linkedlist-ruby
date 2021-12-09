@@ -134,19 +134,13 @@ class Linkedlist
     end
 
     def remove_at(index)
-        if index > self.size
+        if index >= self.size
             return puts "index greater than list size"
         elsif index == 0
             @head = self.at(1)
-        elsif index = self.size
-            lastNode = self.at(index -1)
-            lastNode.nextNode = nil
         else
-            currentNode = self.at(index)
-            prevNode = self.at(index -1)
-            aftNode = self.at(index +1)
-            prevNode.nextNode = aftNode
-            currentNode.nextNode = nil
+            preNode = self.at(index-1)
+            preNode.nextNode = preNode.nextNode.nextNode
         end
     end
 
@@ -157,5 +151,5 @@ ll.append(10)
 ll.append(20)
 ll.append(30)
 ll.append(40)
-ll.remove_at(2)
+ll.remove_at(3)
 puts ll.to_s
