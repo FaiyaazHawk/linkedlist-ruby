@@ -91,9 +91,65 @@ class Linkedlist
                 currentNode = currentNode.nextNode
             end
         end
-        return false
-        
+        return false 
     end
+
+    def find(value)
+        currentNode = @head
+        currentindex = 0
+        until currentNode.nextNode.nil?
+            if currentNode.value == value
+                return currentindex
+            else
+                currentNode = currentNode.nextNode
+                currentindex += 1
+            end
+        end
+        return nil
+    end
+
+    def to_s
+        output = ''
+        currentNode = @head
+        until currentNode.nil?
+            output << "(#{currentNode.value}) ->"
+            currentNode = currentNode.nextNode
+        end
+        output << 'nil'
+        return output
+    end
+
+    def insert_at(value, index)
+        if index > self.size
+            return puts "index greater than list size"
+        elsif (index) == self.size
+            self.append(value)
+        elsif index == 0
+            self.prepend(value)
+        else
+            newNode = Node.new(value,self.at(index))
+            prevNode = self.at(index-1)
+            prevNode.nextNode = newNode
+        end
+    end
+
+    def remove_at(index)
+        if index > self.size
+            return puts "index greater than list size"
+        elsif index == 0
+            @head = self.at(1)
+        elsif index = self.size
+            lastNode = self.at(index -1)
+            lastNode.nextNode = nil
+        else
+            currentNode = self.at(index)
+            prevNode = self.at(index -1)
+            aftNode = self.at(index +1)
+            prevNode.nextNode = aftNode
+            currentNode.nextNode = nil
+        end
+    end
+
 end
 
 ll = Linkedlist.new
@@ -101,10 +157,5 @@ ll.append(10)
 ll.append(20)
 ll.append(30)
 ll.append(40)
-puts ll.head.value
-puts ll.tail.value
-puts ll.at(4)
-p ll.pop
-p ll
-puts ll.contains?(10)
-puts ll.contains?(50)
+ll.remove_at(2)
+puts ll.to_s
